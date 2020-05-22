@@ -15,6 +15,8 @@ RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 USER root
 
 # install prerequisite debian packages
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y  --no-install-recommends \
      php7.0 php7.0-curl \
@@ -24,6 +26,9 @@ RUN apt-get update \
      build-essential libsdl1.2-dev texinfo gawk chrpath diffstat \
      cpio file \
      sudo \
+     bc \
+     realpath \
+     git-lfs \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 

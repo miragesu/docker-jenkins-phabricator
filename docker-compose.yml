@@ -2,11 +2,16 @@ version: '3'
 services:
   docker_jenkins:
     restart: always
-    image: 'miragesu/jenkins-phabricator:latest'
-    container_name: docker_jenkins
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: 'miragesu/jenkins-phabricator'
+    container_name: jenkins
     ports:
       - '80:8080'
       - '50000:50000'
     volumes:
-      - /data/jenkins/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - /home/data/jenkins/jenkins_home:/var/jenkins_home
+      - /home/v1.0-beta8_nogit/:/git_spx_plugin
